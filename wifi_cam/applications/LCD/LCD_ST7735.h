@@ -75,6 +75,11 @@ extern "C"
 
 
 rt_err_t spi_lcd_init(uint32_t freq);
+void LCD_Fill(uint16_t xsta, uint16_t ysta, uint16_t xend, uint16_t yend, uint16_t color);
+void LCD_DrawPicture(uint8_t* picture);
+static void LCD_WriteData_16Bit(uint16_t Data);
+
+
 
 #ifdef __cplusplus
 }

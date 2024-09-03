@@ -50,10 +50,10 @@ void LCD_Address_Set(u16 x1,u16 y1,u16 x2,u16 y2)
     {
         LCD_WR_REG(0x2a);//列地址设置
         LCD_WriteData_16Bit(x1);
-        LCD_WriteData_16Bit(x2+2);
+        LCD_WriteData_16Bit(x2);
         LCD_WR_REG(0x2b);//行地址设置
         LCD_WriteData_16Bit(y1);
-        LCD_WriteData_16Bit(y2+1);
+        LCD_WriteData_16Bit(y2);
         LCD_WR_REG(0x2c);//储存器写
     }
     else if(USE_HORIZONTAL==2)
@@ -188,6 +188,17 @@ void LCD_Fill(uint16_t xsta, uint16_t ysta, uint16_t xend, uint16_t yend, uint16
 }
 
 
+void LCD_DrawPicture(uint8_t* picture)
+{
+    uint16_t i;
+    LCD_Address_Set(0, 0, 95, 95);
+    for (i = 0; i < 96*96*2; i++)
+    {
+        LCD_WR_DATA(picture[i]);
+    }
+}
+
+
 static void Lcd_pin_init(void)
 {
     rt_pin_mode(PKG_ST_7735_DC_PIN, PIN_MODE_OUTPUT);
@@ -248,16 +259,6 @@ rt_err_t  _spi_lcd_init(void)
     }
 
     LCD_Init();
-//    uint8_t i;
-//    for(i=0;i<8;i++)
-//    {
-//        LCD_Fill(0,0,96,96,color_array[i]);
-//        DELAY(2000);
-//    }
-
-
-
-
     return res;
 }
 
