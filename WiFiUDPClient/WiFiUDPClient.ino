@@ -138,7 +138,7 @@ void sendDataOverUDP() {
   if (getCam() != 0) return; // 如果摄像头数据获取失败，则退出
 
   // 分割数据
-  const int bufferSize = 1460; // 根据 MTU 调整
+  const int bufferSize = 1441; // 根据 MTU 调整
   int totalLength = fb->len;
   int packets = (totalLength + bufferSize - 2) / (bufferSize - 1);
 
@@ -185,7 +185,7 @@ void setup() {
 char c;
 void loop() 
 {
-  // 检查是否有新的数据包
+  //检查是否有新的数据包
   int packetSize = Udp.parsePacket();
   if (packetSize) 
   {
